@@ -1,29 +1,33 @@
 import React from "react";
+import { useState, createContext } from "react";
 import NavBar from './components/NavBar'
 import AllEntries from './routes/AllEntries'
 import NewEntry from './routes/NewEntry'
 import EditEntry from './routes/EditEntry'
-import CssBaseline from '@mui/material/CssBaseline';
 import { EntryProvider } from './utilities/globalContext'
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {
   BrowserRouter as Router,
   Routes,
   Route
 } from "react-router-dom";
 
-export default function App() {
+export const ThemeContext = createContext({
+  themeName: 'light',
+  onToggle: () => {},
+});
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark'
-    },
-  });
+export default function App() {
+  // default: light theme
+  const [theme, setTheme] = useState<string>('light');
+
+  const onToggle = () => {
+    setTheme((previousTheme) => (previousTheme === 'light' ? 'dark' : 'light'));
+  };
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <section>
+    <ThemeContext.Provider value={{ themeName: theme, onToggle: onToggle}}>
+    <div className={theme === 'dark' ? 'dark' : ''}>
+      <section className="min-h-screen dark:bg-gray-800">
       <Router>
         <EntryProvider>
         <NavBar></NavBar>
@@ -37,7 +41,8 @@ export default function App() {
           </Routes>
         </EntryProvider>
         </Router>
-      </section>
-    </ThemeProvider>
+        </section>
+    </div>
+    </ThemeContext.Provider>
   );
 }
