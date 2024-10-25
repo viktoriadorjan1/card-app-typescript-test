@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 .dark {
-    --calendar-icon-color: invert(1);
-  }
+  --calendar-icon-color: invert(1);
+}
 
 ::-webkit-calendar-picker-indicator {
-    filter: var(--calendar-icon-color);
+  filter: var(--calendar-icon-color);
 }
