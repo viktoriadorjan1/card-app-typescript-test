@@ -13,7 +13,7 @@ export const ThemeContext = createContext({
 
 export default function App() {
   // default: light theme
-  const [theme, setTheme] = useState<string>("light");
+  const [theme, setTheme] = useState<string>("dark");
 
   const onToggle = () => {
     setTheme((previousTheme) => (previousTheme === "light" ? "dark" : "light"));
